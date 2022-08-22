@@ -1,0 +1,1035 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.prorail.nl/IMSpoor" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" targetNamespace="http://www.prorail.nl/IMSpoor" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IMSpoor-1.0.1-BasicTypes.xsd"/>
+	<xs:include schemaLocation="IMSpoor-1.0.1-TrackAssets.xsd"/>
+	<xs:element name="Groupings">
+		<xs:annotation>
+			<xs:documentation>Gebieden of objecten welke zijn opgebouwd uit andere (Infra)objecten.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="TrackAggregations" minOccurs="0"/>
+				<xs:element ref="Areas" minOccurs="0"/>
+				<xs:element ref="Demarcations" minOccurs="0"/>
+				<xs:element ref="KilometerRibbons" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TrackAggregations">
+		<xs:annotation>
+			<xs:documentation>Definities van de sporen, namelijk PPLG-sporen en Dienstregelpuntsporen. </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="OperationalPointTracks" minOccurs="0"/>
+				<xs:element ref="PPCTracks" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="tLocatedFragmentsObject">
+		<xs:complexContent>
+			<xs:extension base="tMultiLineObject">
+				<xs:sequence>
+					<xs:element name="TrackFragments" type="tTrackFragments"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tTrackAggregation">
+		<xs:annotation>
+			<xs:documentation>Een TrackAggregation is een samenstel van (stukken) spoortakken die worden verondersteld 'kop-staart' gekoppeld te kunnen worden en dan samen een lineair stuk spoor beschrijven.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="tLocatedFragmentsObject"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="OperationalPointTracks">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="OperationalPointTrack" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OperationalPointTrack">
+		<xs:annotation>
+			<xs:documentation>Een dienstregelpuntspoor is een spoor in de benaming en afbakening conform het lokale gebruik op een dienstregelpunt.
+	</xs:documentation>
+			<xs:documentation xml:lang="NL">Dienstregelpuntspoor</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="tTrackAggregation">
+					<xs:sequence>
+						<xs:element name="UsefullLength" type="tDirectionalLength" minOccurs="0" maxOccurs="2">
+							<xs:annotation>
+								<xs:documentation>De maximale doorlopende lengte in meters van een spoor waarop een trein in normale omstandigheden moet stoppen rekening houdend met een passende stoptolerantie. Normale exploitatie betekent dat er geen sprake is van gestoord bedrijf namelijk normale adhesie, werkende seinen, alle systemen functioneren naar behoren)</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="PhysicalLength" type="tDirectionalLength" minOccurs="0" maxOccurs="2">
+							<xs:annotation>
+								<xs:documentation>De afstand in meters tussen de spoorbegrenzers, zonder rekening te houden met een passende stoptoleranatie en/of zichtlijnen.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="ppcTrackRef" type="tUUIDRef" use="required">
+						<xs:annotation>
+							<xs:documentation>Verwijzing naar het omvattende (PPLG)Spoor</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="operationalPointRef" type="tUUIDRef" use="required">
+						<xs:annotation>
+							<xs:documentation>Referentie naar het Dienstregelpunt waar dit spoor onderdeel van is.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="openLineRef" type="tUUIDRef">
+						<xs:annotation>
+							<xs:documentation>Referentie naar een vijebaan spoor waar dit DienstregelpuntSpoor toegang to geeft.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="platformWallRef" type="tUUIDRef">
+						<xs:annotation>
+							<xs:documentation>Verwijzing naar aanliggende perron.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="platformNumber" type="xs:int" use="optional">
+						<xs:annotation>
+							<xs:documentation>Nummer van het perron waarlangs het spoor loopt.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="function" type="tOperationalPointTrackFunctionEnum" use="required">
+						<xs:annotation>
+							<xs:documentation>De functiecode van het dienstregelpuntspoor De lijst van opties is voorgedefiniëerd.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PPCTracks">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="PPCTrack" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PPCTrack">
+		<xs:annotation>
+			<xs:documentation>Een spoor is een ononderbroken, benaamd deel van één of meer spoortakken, eenduidig begrensd door daarvoor
+geldige spoorgrenzen en bedoeld als van- of naar-locatie voor een beweging, danwel als opstelplaats voor materieel. Primary Process Control (PPC = PPLG) </xs:documentation>
+			<xs:documentation xml:lang="NL">PPLG-Spoor</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="tTrackAggregation">
+					<xs:attribute name="beginDemarcatorRef" type="tUUIDRef" use="required"/>
+					<xs:attribute name="endDemarcatorRef" type="tUUIDRef" use="required"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Areas">
+		<xs:annotation>
+			<xs:documentation>Verzameling van groepen geografische gebieden en geografische gebiedsaggregaties.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="GeoSubcodeAreas" minOccurs="0"/>
+				<xs:element ref="GeocodeAreas" minOccurs="0"/>
+				<xs:element ref="ProRailRegions" minOccurs="0"/>
+				<xs:element ref="ProcessContractAreas" minOccurs="0"/>
+				<xs:element ref="CalamityOrganisationAreas" minOccurs="0"/>
+				<xs:element ref="IncidentManagementPrimaryAreas" minOccurs="0"/>
+				<xs:element ref="IncidentManagementReplacementAreas" minOccurs="0"/>
+				<xs:element ref="SMCOverheadLineServiceAreas" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SMCOverheadLineServiceAreas">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="SMCOverheadLineServiceArea" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="CalamityOrganisationAreas">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="CalamityOrganisationArea" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="IncidentManagementPrimaryAreas">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="IncidentManagementPrimaryArea" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="IncidentManagementReplacementAreas">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="IncidentManagementReplacementArea" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ProRailRegions">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ProRailRegion" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GeoSubcodeAreas">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="GeoSubcodeArea" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GeocodeAreas">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="GeocodeArea" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ProcessContractAreas">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ProcessContractArea" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Demarcations">
+		<xs:annotation>
+			<xs:documentation>Verzameling van groepen demarcaties en demarcatie-aggregaties.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="OperationalPoints" minOccurs="0"/>
+				<xs:element ref="OpenLines" minOccurs="0"/>
+				<xs:element ref="TrainVacancyDetection" minOccurs="0"/>
+				<xs:element ref="PPCs" minOccurs="0"/>
+				<xs:element ref="TrafficControleAreas" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OperationalPoints">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:annotation>
+					<xs:documentation>Dienstregelpunten.</xs:documentation>
+				</xs:annotation>
+				<xs:element ref="OperationalPoint" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OpenLines">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:annotation>
+					<xs:documentation>Vrije banen</xs:documentation>
+				</xs:annotation>
+				<xs:element ref="OpenLine" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TrainVacancyDetection">
+		<xs:annotation>
+			<xs:documentation>Type voor een verzameling van Secties</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="GRSSection" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="AFSection" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="AxleCounterSection" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PPCs">
+		<xs:annotation>
+			<xs:documentation>Type voor een verzameling PPC-demarcaties</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="PPC" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TrafficControleAreas">
+		<xs:annotation>
+			<xs:documentation>Type voor een verzameling Posten</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="TrafficControleArea" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PPC">
+		<xs:annotation>
+			<xs:documentation>Een Primair ProcesLeidings Gebied (PPLG/PPCA) is een primair gebied, dat wordt bepaald door de projectie van een afgebakende verzameling bedienbevoegdheden op een centraal bediend gedeelte van de railinfrastructuur. (=Verzameling van bediende dienstregelpunten.)</xs:documentation>
+			<xs:documentation xml:lang="NL">PPLG</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="tMultiLineObject">
+					<xs:sequence>
+						<xs:element name="ControlledOperationalPointRefs" type="tUUIDRefList"/>
+						<xs:element name="EntrySignalRefs" type="tUUIDRefList" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TrafficControleArea">
+		<xs:annotation>
+			<xs:documentation>Een bedienpost is een post van waar centraal seinen en wissels worden bediend. Het is opgebouwd uit een verzameling PPLG's, vrije banen en Nietbediende dienstregelpunten.</xs:documentation>
+			<xs:documentation xml:lang="NL">VL-Post</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="tMultiLineObject">
+					<xs:sequence>
+						<xs:element name="PPCRefs" type="tUUIDRefList"/>
+						<xs:element name="UncontrolledOperationalPointRefs" type="tUUIDRefList"/>
+						<xs:element name="OpenLineRefs" type="tUUIDRefList"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="tDemarcation">
+		<xs:annotation>
+			<xs:documentation>Generiek type voor een afbakening of demarcatie.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="tLocatedFragmentsObject">
+				<xs:attribute name="description" type="tDescriptionString"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tArea">
+		<xs:annotation>
+			<xs:documentation>Generiek type voor een gebied.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="tMultiPolygonObject"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tAreaAggregation">
+		<xs:annotation>
+			<xs:documentation>Generiek type voor aggregatie van geografische gebieden</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="tMultiPolygonObject">
+				<xs:sequence>
+					<xs:element name="IDRefList" type="tUUIDRefList"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="GeoSubcodeArea">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>Type voor een geosubcodegebied.</xs:documentation>
+				<xs:documentation xml:lang="NL">Geosubcodegebied</xs:documentation>
+			</xs:annotation>
+			<xs:complexContent>
+				<xs:extension base="tArea">
+					<xs:attribute name="level" type="xs:int"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GeocodeArea">
+		<xs:annotation>
+			<xs:documentation>Type voor een geocodegebied, een aggregatie van subcodegebieden</xs:documentation>
+			<xs:documentation xml:lang="NL">Geocodegebied</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="tAreaAggregation">
+					<xs:attribute name="description" type="tDescriptionString"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ProcessContractArea">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>Type voor een processcontractaannemer-gebied (PCA)</xs:documentation>
+				<xs:documentation xml:lang="NL">Procescontractgebied</xs:documentation>
+			</xs:annotation>
+			<xs:complexContent>
+				<xs:extension base="tArea">
+					<xs:attribute name="type" type="tPCAEnum" use="required">
+						<xs:annotation>
+							<xs:documentation>Het soort PCA</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="pgoArea" type="tString50">
+						<xs:annotation>
+							<xs:documentation>Veld om PCA's te groeperen?</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="number" type="xs:integer">
+						<xs:annotation>
+							<xs:documentation>Het nummer?</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="contractor" type="tString50">
+						<xs:annotation>
+							<xs:documentation>De naam van de aannemer gekoppeld aan het PCA</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ProRailRegion">
+		<xs:annotation>
+			<xs:documentation>Type voor een ProRail regio</xs:documentation>
+			<xs:documentation xml:lang="NL">ProRail Regiogebied</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="tArea"/>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SMCOverheadLineServiceArea">
+		<xs:annotation>
+			<xs:documentation>Type voor een bedieningsgebied ivm bovenleiding</xs:documentation>
+			<xs:documentation xml:lang="NL">Boverleiding Bedieningsgebied</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="tArea"/>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="IncidentManagementPrimaryArea">
+		<xs:annotation>
+			<xs:documentation>Type voor een incidentbestrijdingsgebied</xs:documentation>
+			<xs:documentation xml:lang="NL">Incidentbestreidingsgebied</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="tArea"/>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="IncidentManagementReplacementArea">
+		<xs:annotation>
+			<xs:documentation>Type voor een incidentbestrijding vervangingsgebied</xs:documentation>
+			<xs:documentation xml:lang="NL">Incidentbestreiding vervangingsgebied</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="tArea"/>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="CalamityOrganisationArea">
+		<xs:annotation>
+			<xs:documentation>Type voor een calamiteitenorganisatiegebied</xs:documentation>
+			<xs:documentation xml:lang="NL">Calamiteitenorganisatiegebied</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="tArea"/>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OpenLine">
+		<xs:annotation>
+			<xs:documentation>Een vrije baan is een gebied dat twee dienstregelpunten of twee PPLG´s met elkaar verbindt.</xs:documentation>
+			<xs:documentation xml:lang="NL">Vrijebaan</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="tDemarcation"/>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OperationalPoint">
+		<xs:annotation>
+			<xs:documentation>Een dienstregelpunt is een primair gebied dat een aaneengesloten begrensd deel van het spoorwegnet vormt
+en dat een functie vervult bij het opzetten en vastleggen van de dienstregeling.</xs:documentation>
+			<xs:documentation xml:lang="NL">Dienstregelpunt</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="tDemarcation">
+					<xs:attribute name="operationalPointType" type="tOperationalPointEnum" use="required">
+						<xs:annotation>
+							<xs:documentation>Het type van het dienstregelpunt. De keuzes zijn voorgedefiniëerd.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="serviceCode" type="tServiceEnum" use="required">
+						<xs:annotation>
+							<xs:documentation>Het bedieningscode van het dienstregelpunt. De lijst van opties is voorgedefiniëerd.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="isServiced" type="tTrueFalseEnum" use="required">
+						<xs:annotation>
+							<xs:documentation>Geeft aan of het dienstregelpunt bediend of onbediend is.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="countryCode" type="tCountryCodeEnum" use="required">
+						<xs:annotation>
+							<xs:documentation>De landcode van het dienstregelpunt.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="uicCode" type="tString50">
+						<xs:annotation>
+							<xs:documentation>Unieke code voor het dienstregelpunt uitgegeven door Union Internationale des Chemins de fer
+</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="voltageClass" type="tVoltageClassEnum" use="required">
+						<xs:annotation>
+							<xs:documentation>De spanningsklasse binnen het dienstregelpunt.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GRSSection">
+		<xs:annotation>
+			<xs:documentation>Een sectie is een door sectiescheidingen afgebakend gebied dat als geheel in de beveiliging beschikbaar of
+bezet wordt gemeld. Dus de kleinste eenheid railinfrastructuur die voor één doel tegelijk in gebruik kan zijn.</xs:documentation>
+			<xs:documentation xml:lang="NL">GRS-Sectie</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="tDemarcation">
+					<xs:sequence>
+						<xs:element name="InsulatedJointRefs" type="tUUIDRefList" minOccurs="0" maxOccurs="1">
+							<xs:annotation>
+								<xs:documentation>PUIC verwijzingen naar de gerelateerde ES-Lassen</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="isHighVoltageSection" type="tTrueFalseEnum" use="required">
+						<xs:annotation>
+							<xs:documentation>Het type detectiesysteem binnen de sectie. De lijst van opties is voorgedefiniëerd.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="isLampSection" type="tTrueFalseEnum" use="required">
+						<xs:annotation>
+							<xs:documentation>Geeft aan of de sectie een lampsectie is.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="highVoltageDetectionCabinetRef" type="tUUIDRef">
+						<xs:annotation>
+							<xs:documentation>Een PUIC verwijzing naar de bijbehorende PSSSL-kast</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="AFSection">
+		<xs:annotation>
+			<xs:documentation>Toon-Frequente blokdetectie (JADE)</xs:documentation>
+			<xs:documentation xml:lang="NL">JADE-Sectie</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="tDemarcation">
+					<xs:sequence>
+						<xs:element name="AFJointRefs" type="tUUIDRefList" minOccurs="0" maxOccurs="1">
+							<xs:annotation>
+								<xs:documentation>PUIC verwijzingen naar de gerelateerde TF-Lassen</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="InsulatedJointRefs" type="tUUIDRefList" minOccurs="0" maxOccurs="1">
+							<xs:annotation>
+								<xs:documentation>PUIC verwijzingen naar de gerelateerde ES-Lassen</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="tunerunitRef" type="tUUIDRef" use="optional">
+						<xs:annotation>
+							<xs:documentation>Een Tuner tbv toonfrequente-detectie.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="afSectionType" type="tAfSectionTypeEnum" use="required">
+						<xs:annotation>
+							<xs:documentation>Het type JADE dat is gebruikt. De lijst van opties is voorgedefiniëerd.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="AxleCounterSection">
+		<xs:annotation>
+			<xs:documentation>Een assenteller is een apparaat voor de detectie van treinen op een spoorweg. Assentellers hebben als voordeel dat ze in tegenstelling tot waarneming via een spoorstroomloop ook lichtere treinen goed kunnen detecteren. Een ander groot voordeel is dat er geen storings- en slijtagegevoelige scheidingslassen in het spoor nodig zijn. Ook verwijderen van roest van de rails is niet meer nodig.</xs:documentation>
+			<xs:documentation xml:lang="NL">Assentellersectie</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="tDemarcation">
+					<xs:sequence>
+						<xs:element name="AxleCounterDetectionPointRefs" type="tUUIDRefList">
+							<xs:annotation>
+								<xs:documentation>Een lijst van PUIC's die wijzen naar de telpunten van dit assenteller-systeem</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="axleCounterUnitRef" type="tUUIDRef">
+						<xs:annotation>
+							<xs:documentation>Een PUIC verwijzing naar de bijbehorende assentelunit</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="axleCounterType" type="tAxleCounterTypeEnum" use="required"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="tGeoSubcode">
+		<xs:annotation>
+			<xs:documentation>Type voor een GeoSubcode.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:length value="4" fixed="true"/>
+			<xs:pattern value="[0-9]{3}[a-z_]{1}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="tTrackFragments">
+		<xs:annotation>
+			<xs:documentation>Type voor een set van spoortakfragmenten.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TrackFragment" type="tTrackFragment" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="tTrackFragment">
+		<xs:annotation>
+			<xs:documentation>Type voor een fragment van een track</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="railConnectionRef" type="tUUIDRef" use="required">
+			<xs:annotation>
+				<xs:documentation>referentie naar de spoortak</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="fromMeasure" type="xs:double">
+			<xs:annotation>
+				<xs:documentation>De positie van het begin van het event op het lijnstuk. Het aantal meters vanaf het begin van de spoortak.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="toMeasure" type="xs:double">
+			<xs:annotation>
+				<xs:documentation>De positie van het einde van het event op het lijnstuk. Het aantal meters vanaf het begin van de spoortak.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:element name="KilometerRibbons">
+		<xs:annotation>
+			<xs:documentation>Verzameling kilometerlinten.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="KilometerRibbon" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="KilometerRibbon">
+		<xs:annotation>
+			<xs:documentation>Een kilometerlint. Hier niet gerealiseerd als XY(Z)M, maar als XY(Z), met een parallelle lijst van measures</xs:documentation>
+			<xs:documentation xml:lang="NL">Kilometerlintgebied</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="tLineObject">
+					<xs:sequence>
+						<xs:element name="Measures" type="tDoubleList"/>
+						<xs:element ref="MeasuringLine" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+					<xs:attribute name="kmFrom" type="xs:double" use="required">
+						<xs:annotation>
+							<xs:documentation>Minimale waarde voor referenties naar het kilometerlint</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="kmTo" type="xs:double" use="required">
+						<xs:annotation>
+							<xs:documentation>Minimale waarde voor referenties naar het kilometerlint</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="description" type="tDescriptionString" use="required">
+						<xs:annotation>
+							<xs:documentation>Volledige uitgeschreven naam van het kilometerlint.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="MeasuringLine">
+		<xs:annotation>
+			<xs:documentation>Een Hectometerraai is een visuele aanduiding bij de hectometerpunten, in de vorm van een T welke loodrecht staat op het kilometerlint.</xs:documentation>
+			<xs:documentation xml:lang="NL">Hectometerraai</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="GeographicLocation" type="tMultiLineString">
+					<xs:annotation>
+						<xs:documentation>De geografische weergave van de Hectometerraai.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="labelValue" type="xs:double" use="required">
+				<xs:annotation>
+					<xs:documentation>De bijbehoorde waarde van de hectometerraai in meters.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="tOperationalPointEnum">
+		<xs:annotation>
+			<xs:documentation>Enumeratie van dienstregelpunttypes (station, halte, etc.)</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Unknown">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Onbekend</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Connection">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Aansluiting</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Bridge">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Brug</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Terminal">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Eindstation</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EventStop">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Evenementen Halte</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FreightYard">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Goederen Emplacement</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BorderOperationalPoint">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Grens Dienstregelpunt</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BorderStation">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Grensstation</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Stop">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Halte</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MaintenancePoint">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">IVO</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Junction">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Knooppunt</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MuseumStop">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Museum Halte</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MaintenancePointDiversion">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Overloop</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Station">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Station</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tServiceEnum">
+		<xs:annotation>
+			<xs:documentation>Enumeratie van bedieningscode</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Unknown">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Onbekend</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FreightYard">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Goederen emplacement</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="StopStation">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Stop-station</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="IntercityStation">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">IC Intercity-station</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="InterregionStation">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">IR Interregio-station</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EurocityStation">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">EC -Eurocity-station</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MoveableBridge">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">BR  Beweegbare brug</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Diversion">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">OA  Overloop-aansluiting</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Connection">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">AS Aansluiting/splitsing</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Other">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">OV Overige</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tCountryCodeEnum">
+		<xs:annotation>
+			<xs:documentation>Enumeratie van landcodes</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Unknown">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Onbekend</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NL">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Nederland</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="B">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Belgie</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="D">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Duitsland</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tSignalAspectColorEnum">
+		<xs:annotation>
+			<xs:documentation>Enumeratie van seinkleuren Rood, Geel en Groen, met variant FL voor knipperend </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+			<!--
+			<xs:enumeration value="Unknown"><xs:annotation><xs:documentation xml:lang="NL">Onbekend</xs:documentation></xs:annotation></xs:enumeration>
+			<xs:enumeration value="Red"/>
+			<xs:enumeration value="YellowFlashing"/>
+			<xs:enumeration value="Yellow"/>
+			<xs:enumeration value="Green"/>
+			<xs:enumeration value="GreenFlashing"/>
+			<xs:enumeration value="White"/>
+-->
+			<!-- R  -->
+			<!-- GLFL  -->
+			<!-- GL  -->
+			<!-- GR  -->
+			<!-- GRFL  -->
+			<!-- W  -->
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tPCAEnum">
+		<xs:annotation>
+			<xs:documentation>Enumeratie van types van procescontractgebieden</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Unknown">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Onbekend</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Base">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Basis</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Railroad">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Baan</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Power3kV">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">3kv</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OverheadLine">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">BVL</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CivilStructures">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Kunstwerken</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Signaling">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Seinwezen</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Telecom">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Telecom</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tOperationalPointTrackFunctionEnum">
+		<xs:annotation>
+			<xs:documentation>Enumeratie van functiecodes voor dienstregelpuntsporen</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Unknown">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Onbekend</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Bridge">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">BR	Brug-spoor</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EntryExitPlatform">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">IP In-/uitrij en perronspoor</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EntryExit">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">IU In-/uitrijspoor</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Stabling">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">O Opstelspoor</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="InterlockingTransition">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">OV Overgangsspoor PPLG naar onbeveiligd gebied</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Platform">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">P Perronspoor</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Other">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">R Restspoor</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tAfSectionTypeEnum">
+		<xs:annotation>
+			<xs:documentation>Enumeratie van types van JADE systemen.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Unknown">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Onbekend</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="JADE1">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Joint Accord Double Electrique 1</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="JADE2">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Joint Accord Double Electrique 2</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FTGS">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Ferngespeiste Tonfrequenz Gleiss Stromkreis.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TCM100">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">ntb</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tAxleCounterTypeEnum">
+		<xs:annotation>
+			<xs:documentation>Enumeratie van types van assenteller systemen.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Unknown">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">Onbekend</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AZ_LM">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">ACE (Axle Counter Evaluator)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AZ_L90">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">AZA (Achsen Zählauswertung)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="GE_SCA2">
+				<xs:annotation>
+					<xs:documentation xml:lang="NL">General Electric SCA2</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tAspectList">
+		<xs:annotation>
+			<xs:documentation>Type voor een lijst van stringwaarden</xs:documentation>
+		</xs:annotation>
+		<xs:list itemType="tSignalAspectColorEnum"/>
+	</xs:simpleType>
+</xs:schema>

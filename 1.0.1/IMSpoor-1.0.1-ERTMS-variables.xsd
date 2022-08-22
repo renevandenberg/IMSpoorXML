@@ -1,0 +1,1499 @@
+<?xml version="1.0"?>
+<xs:schema targetNamespace="http://www.prorail.nl/IMSpoor" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.prorail.nl/IMSpoor">
+	<xs:element name="M_MODETEXTDISPLAY">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint4"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_LINK">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="M_DUP">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint2"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="tDecelaration">
+		<xs:annotation>
+			<xs:documentation>A decelaration, with a range from 0..3.15 m/s^2 and a step size of 0.05 m/s^2.]</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:maxInclusive value="3.15"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tLength">
+		<xs:annotation>
+			<xs:documentation>A length in meters with a step size of 10 cm. The allowed range is 0.. 327670 meters.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:maxInclusive value="327670"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="uint8">
+		<xs:annotation>
+			<xs:documentation>[0,255]</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:maxInclusive value="255"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="uint10">
+		<xs:annotation>
+			<xs:documentation>[0,1023]</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:maxInclusive value="1023"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="uint13">
+		<xs:annotation>
+			<xs:documentation> [0,8191]</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:maxInclusive value="8191"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="udec5">
+		<xs:annotation>
+			<xs:documentation>[0,1.55]</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:maxInclusive value="1.55"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="udec7">
+		<xs:annotation>
+			<xs:documentation>[0,2.54]</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:maxInclusive value="2.54"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="digit6">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9]{0,16}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="digit16">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9]{0,16}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="digit8">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9]{0,8}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="uint24">
+		<xs:annotation>
+			<xs:documentation>[0,16777215]</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:maxInclusive value="16777215"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="uint14">
+		<xs:annotation>
+			<xs:documentation>[0,16383]</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:maxInclusive value="16383"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="uint9">
+		<xs:annotation>
+			<xs:documentation>[0,511]</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:maxInclusive value="511"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="uint6">
+		<xs:annotation>
+			<xs:documentation>[0,63]</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:maxInclusive value="63"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tSpeed">
+		<xs:annotation>
+			<xs:documentation>A speed in km/h, ranging from 0-600 km/h, with a step size of 5 km/h. Allowed values are: 0, 5, 10, 15 ... 600.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-6]?[0-9]?[0,5]"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tCurrent">
+		<xs:annotation>
+			<xs:documentation>An electric current in amperes, ranging from 0..10000, with a step size of 10A.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:maxInclusive value="100000"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="uint5">
+		<xs:annotation>
+			<xs:documentation>[0,1,2,3 ...........31]</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:maxInclusive value="31"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="uint3">
+		<xs:annotation>
+			<xs:documentation>[0,7]</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:maxInclusive value="7"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="uint4">
+		<xs:annotation>
+			<xs:documentation>[0,15]</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:maxInclusive value="15"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="uint2">
+		<xs:annotation>
+			<xs:documentation>[0,3]</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:maxInclusive value="3"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="uint7">
+		<xs:annotation>
+			<xs:documentation>[0,127]</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:maxInclusive value="127"/>
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="M_VERSION" type="xs:integer"/>
+	<xs:simpleType name="TextString">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:element name="A_NVMAXREDADH1">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tDecelaration"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="A_NVMAXREDADH2">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tDecelaration"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="A_NVMAXREDADH3">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tDecelaration"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="A_NVP12">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tDecelaration"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="A_NVP23">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tDecelaration"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_ADHESION">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_AXLELOAD">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_CURRENT">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_CYCLOC">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_DP">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_ENDTIMERSTARTLOC">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_GRADIENT">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_INFILL">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_LEVELTR">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_LINK">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_LOC">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_LOOP">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_LX">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_MAMODE">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_NVOVTRP">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_NVPOTRP">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_NVROLL">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_NVSTFF">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_OL">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_PBD">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_PBDSR">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_POSOFF">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_RBCTR">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_REVERSE">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_SECTIONTIMERSTOPLOC">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_SR">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_STARTOL">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_STARTREVERSE">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_STATIC">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_SUITABILITY">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_TEXTDISPLAY">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_TRACKCOND">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_TRACKINIT">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_TRACTION">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_TSR">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="D_VALIDV">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="G_A">
+		<xs:annotation>
+			<xs:documentation>Safe gradient</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint8"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="G_PBDSR">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint8"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="G_TSR">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint8"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="L_ACKLEVELTR">
+		<xs:annotation>
+			<xs:documentation>Length of the acknowledgement area in rear of the required level</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="L_ACKMAMODE">
+		<xs:annotation>
+			<xs:documentation>Length of the acknowledgement area in rear of the start of the required mode</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="L_ADHESION">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="L_AXLELOAD">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="L_ENDSECTION">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="L_LOOP">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="L_MAMODE">
+		<xs:annotation>
+			<xs:documentation>Length of the area of the required mode</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="L_NVKRINT">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint5"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="L_PACKET">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint13"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="L_PBDSR">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="L_REVERSEAREA">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="L_SECTION">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="L_STOPLX">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="L_TEXT">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint8"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="L_TEXTDISPLAY">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="L_TRACKCOND">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="L_TSR">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="L_LX">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tLength"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="M_ADHESION">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="boolean">
+		<xs:restriction base="xs:boolean"/>
+	</xs:simpleType>
+	<xs:element name="M_AXLELOADCAT">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint7"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="M_CURRENT">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tCurrent"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="M_LEVELTEXTDISPLAY">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint3"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="M_LEVELTR">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint3"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="M_LINEGAUGE">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint8"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="M_LOC">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint3"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="M_MAMODE">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint2"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="M_NVAVADH">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="udec5"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="M_NVCONTACT">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint2"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="T_LSSMA">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint8"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_LSSMA">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="M_NVDERUN">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="M_NVKRINT">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="udec5"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="M_NVKTINT">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="udec5"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="M_NVKVINT">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="udec7"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="M_PLATFORM">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint4"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="M_POSTION">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint24"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="M_TRACKCOND">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint4"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="M_VOLTAGE">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint4"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="N_ITER">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint5"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="NC_CDDIFF">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint4"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="NC_DIFF">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint4"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="NID_BG">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint14"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="NID_C">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint10"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="NID_CTRACTION">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint10"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="NID_LOOP">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint14"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="NID_LX">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint8"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="NID_MN">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="digit6"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="NID_OPERATIONAL">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="digit8"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="NID_PACKET">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint8"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="NID_RADIO">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="digit16"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="NID_RBC">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint14"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="NID_RIU">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint14"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="NID_NTC">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint8"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="NID_TEXTMESSAGE">
+		<xs:annotation>
+			<xs:documentation>Text message identifier
+Identity of a text message from trackside to be used in a report of driver acknowledgement to the RBC.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint8"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="NID_TSR">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint8"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="NID_VBCMK">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint6"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="NID_XUSER">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint9"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_ASPECT">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_CONFTEXTDISPLAY">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_DANGERPOINT">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_DIFF">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint2"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_DIR">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint2"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_ENDTIMER">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_FRONT">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_GDIR">
+		<xs:annotation>
+			<xs:documentation>Qualifier for gradient slope.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_LINKORIENTATION">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_LINKREACTION">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint2"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_LGTLOC">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_LOCACC">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint6"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_LOOPDIR">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_LXSTATUS">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_MAMODE">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_MPOSITION">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_NVDRIVER_ADHES">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_NVEMRRLS">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_NVGUIPERM">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_NVINHSMICPERM">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_NVKVINTSET">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint2"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_NVLOCACC">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint6"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_NVSBFBPERM">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_NVSBTSMPERM">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_OVERLAP">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_PBDSR">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_PLATFORM">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint2"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_RBC">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_RIU">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_SCALE">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint2"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_SECTIONTIMER">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_SLEEPSESSION">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_SRSTOP">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_SSCODE">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint4"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_STOPLX">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_SUITABILITY">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint2"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_TEXT">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint8"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_TEXTCLASS">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint2"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_TEXTCONFIRM">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint2"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_TEXTDISPLAY">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="T_CYCRQST">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint8"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="T_ENDTIMER">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint10"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="T_LOA">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint10"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="T_MAR">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint8"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="T_TEXTDISPLAY">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint10"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="T_TIMEOUTRQST">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint10"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="T_VBC">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint8"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="V_AXLELOAD">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tSpeed"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="V_DIFF">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tSpeed"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="V_LOA">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tSpeed"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="V_LX">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tSpeed"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="V_MAIN">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tSpeed"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="V_NVKVINT">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tSpeed"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="V_NVLIMSUPERV">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tSpeed"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="V_NVONSIGHT">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tSpeed"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="V_NVREL">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tSpeed"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="V_NVSHUNT">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tSpeed"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="V_NVSUPOVTRP">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tSpeed"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="V_NVSTFF">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tSpeed"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="V_RELEASEDP">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tSpeed"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_TEXTREPORT">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_TRACKINIT">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_VBCO">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="T_CYCLOC">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint8"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="T_NVCONTACT">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint8"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="T_NVOVTRP">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint8"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="T_OL">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint10"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="T_SECTIONTIMER">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint10"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="V_EMA">
+		<xs:annotation>
+			<xs:documentation>Permitted speed at the end of Movement Authority</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tSpeed"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="V_MAMODE">
+		<xs:annotation>
+			<xs:documentation>Required mode related speed</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tSpeed"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="V_NVALLOWOVTRP">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tSpeed"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="V_NVUNFIT">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tSpeed"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="V_RELEASEOL">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tSpeed"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="V_REVERSE">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tSpeed"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="V_STATIC">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tSpeed"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="V_TSR">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="tSpeed"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="X_TEXT">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="TextString"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="M_NVEBCL">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="uint4"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_NVKINT">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Q_NEWCOUNTRY">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="boolean"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

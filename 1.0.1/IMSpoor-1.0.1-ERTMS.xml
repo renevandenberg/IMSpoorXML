@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Dit bestand bevat voorbeelden van IMSpoor-ERTMS elementen.
+		Disclaimers:
+		1. Alle informatie is fictief,
+		2. Alle referenties naar PUIC's zijn fictief,
+		3. Alle elementen hebben dezelfde locatie, richting en track referentie.
+-->
+<ERTMS xmlns="http://www.prorail.nl/IMSpoor" xmlns:gml="http://www.opengis.net/gml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.prorail.nl/IMSpoor IMSpoor-1.0.1-ExampleERTMS.xsd">
+	<TrackConditionMarkers>
+		<TC68 puic="544c2e3c-1bfe-47a0-bc72-4b5355764698" name="Track Condition 68">
+			<Location>
+				<GeographicLocation dataAcquisitionMethod="Constructed">
+					<gml:Point srsName="EPSG:28992">
+						<gml:coordinates>202361.017,437300.21</gml:coordinates>
+					</gml:Point>
+				</GeographicLocation>
+			</Location>
+			<RailConnectionInfo railConnectionRef="6c9e5c45-02b3-4507-955e-57061fd793c4" direction="Downstream" atMeasure="818.041"/>
+				<M_TRACKCOND>0000</M_TRACKCOND>
+		</TC68>
+		<TC69_StationPlatforms puic="957c804e-0901-433d-9d5b-dd5bbf175aed" name="Track Condition 69">
+			<Location>
+				<GeographicLocation dataAcquisitionMethod="Constructed">
+					<gml:Point srsName="EPSG:28992">
+						<gml:coordinates>202361.017,437300.21</gml:coordinates>
+					</gml:Point>
+				</GeographicLocation>
+			</Location>
+			<RailConnectionInfo railConnectionRef="6c9e5c45-02b3-4507-955e-57061fd793c4" direction="Downstream" atMeasure="818.041"/>
+				<M_PLATFORM>15</M_PLATFORM>
+				<Q_PLATFORM>00</Q_PLATFORM>
+		</TC69_StationPlatforms>
+		<TC40_ChangeOfAllowedCurrentConsumption puic="71cff808-4a0b-4f70-a421-f07b0d3dd92f" name="Track Condition 40">
+			<Location>
+				<GeographicLocation dataAcquisitionMethod="Constructed">
+					<gml:Point srsName="EPSG:28992">
+						<gml:coordinates>202361.017,437300.21</gml:coordinates>
+					</gml:Point>
+				</GeographicLocation>
+			</Location>
+			<RailConnectionInfo railConnectionRef="6c9e5c45-02b3-4507-955e-57061fd793c4" direction="Downstream" atMeasure="818.041"/>
+				<M_CURRENT>100</M_CURRENT>
+		</TC40_ChangeOfAllowedCurrentConsumption>
+		<TC39_ChangeOfTractionSystem puic="938cbe97-7209-411a-b2d6-c1112815aa7d" name="Track Condition 39">
+			<Location>
+				<GeographicLocation dataAcquisitionMethod="Constructed">
+					<gml:Point srsName="EPSG:28992">
+						<gml:coordinates>202361.017,437300.21</gml:coordinates>
+					</gml:Point>
+				</GeographicLocation>
+			</Location>
+			<RailConnectionInfo railConnectionRef="6c9e5c45-02b3-4507-955e-57061fd793c4" direction="Downstream" atMeasure="818.041"/>
+				<M_VOLTAGE>4</M_VOLTAGE>
+		</TC39_ChangeOfTractionSystem>
+		<TC67_BigMetalMass puic="2d015928-b369-435d-b78c-1cefe5f1dabb" name="Track Condition 67">
+			<Location>
+				<GeographicLocation dataAcquisitionMethod="Constructed">
+					<gml:Point srsName="EPSG:28992">
+						<gml:coordinates>202361.017,437300.21</gml:coordinates>
+					</gml:Point>
+				</GeographicLocation>
+			</Location>
+			<RailConnectionInfo railConnectionRef="6c9e5c45-02b3-4507-955e-57061fd793c4" direction="Downstream" atMeasure="818.041"/>
+		</TC67_BigMetalMass>
+	</TrackConditionMarkers>
+	<TransitionMarkers>
+		<TransitionMarker puic="ccd5d1c4-2e80-4c7b-8361-8151eb19eb3c" name="Level transitie">
+			<Location>
+				<GeographicLocation dataAcquisitionMethod="Constructed">
+					<gml:Point srsName="EPSG:28992">
+						<gml:coordinates>202361.017,437300.21</gml:coordinates>
+					</gml:Point>
+				</GeographicLocation>
+			</Location>
+			<RailConnectionInfo railConnectionRef="6c9e5c45-02b3-4507-955e-57061fd793c4" direction="Downstream" atMeasure="818.041"/>
+			<LevelTransition conditional="false">
+				<ERTMSLevel>
+					<M_LEVELTR>3</M_LEVELTR>
+					<L_ACKLEVELTR>10.0</L_ACKLEVELTR>
+				</ERTMSLevel>
+				<PriorityList>
+					<ERTMSLevel>
+						<M_LEVELTR>3</M_LEVELTR>
+						<L_ACKLEVELTR>10.0</L_ACKLEVELTR>
+					</ERTMSLevel>
+					<ERTMSLevel>
+						<M_LEVELTR>2</M_LEVELTR>
+						<L_ACKLEVELTR>10.0</L_ACKLEVELTR>
+					</ERTMSLevel>
+				</PriorityList>
+			</LevelTransition>
+		</TransitionMarker>
+		<TransitionMarker puic="9198e1c2-65e4-4f8d-b283-d37548c89819" name="Wisselstand-afhankelijke level transitie">
+			<Location>
+				<GeographicLocation dataAcquisitionMethod="Constructed">
+					<gml:Point srsName="EPSG:28992">
+						<gml:coordinates>202361.017,437300.21</gml:coordinates>
+					</gml:Point>
+				</GeographicLocation>
+			</Location>
+			<RailConnectionInfo railConnectionRef="6c9e5c45-02b3-4507-955e-57061fd793c4" direction="Downstream" atMeasure="818.041"/>
+			<SwitchCondition switchRef="45b379ef-0faf-4fd2-ac60-534e57bae347" switchPosition="Left"/>
+			<LevelTransition>
+				<ERTMSLevel>
+					<M_LEVELTR>3</M_LEVELTR>
+					<L_ACKLEVELTR>10.0</L_ACKLEVELTR>
+				</ERTMSLevel>
+			</LevelTransition>
+		</TransitionMarker>
+		<TransitionMarker puic="00166215-25bc-4255-b2f4-460b14ef17de" name="Mode transitie">
+			<Location>
+				<GeographicLocation dataAcquisitionMethod="Constructed">
+					<gml:Point srsName="EPSG:28992">
+						<gml:coordinates>202361.017,437300.21</gml:coordinates>
+					</gml:Point>
+				</GeographicLocation>
+			</Location>
+			<RailConnectionInfo railConnectionRef="6c9e5c45-02b3-4507-955e-57061fd793c4" direction="Downstream" atMeasure="818.041"/>
+			<ModeTransition acknowledgementTime="30">
+				<M_MAMODE>01</M_MAMODE>
+				<Q_MAMODE>0</Q_MAMODE>
+				<V_MAMODE>40</V_MAMODE>
+				<L_MAMODE>1.0</L_MAMODE>
+				<L_ACKMAMODE>1.0</L_ACKMAMODE>
+			</ModeTransition>
+		</TransitionMarker>
+		<TransitionMarker puic="35ad3f7f-eaad-4f16-982b-0acf6e4f7e5e" name="TSI-CCS transitie">
+			<Location>
+				<GeographicLocation dataAcquisitionMethod="Constructed">
+					<gml:Point srsName="EPSG:28992">
+						<gml:coordinates>202361.017,437300.21</gml:coordinates>
+					</gml:Point>
+				</GeographicLocation>
+			</Location>
+			<RailConnectionInfo railConnectionRef="6c9e5c45-02b3-4507-955e-57061fd793c4" direction="Downstream" atMeasure="818.041"/>
+			<TSI-CCSTransition>
+				<M_VERSION>0100000</M_VERSION>
+			</TSI-CCSTransition>
+		</TransitionMarker>
+		<TransitionMarker puic="5de31ab8-a777-4203-9b39-7d26ec823928" name="RBC-RBC transitie">
+			<Location>
+				<GeographicLocation dataAcquisitionMethod="Constructed">
+					<gml:Point srsName="EPSG:28992">
+						<gml:coordinates>202361.017,437300.21</gml:coordinates>
+					</gml:Point>
+				</GeographicLocation>
+			</Location>
+			<RailConnectionInfo railConnectionRef="6c9e5c45-02b3-4507-955e-57061fd793c4" direction="Downstream" atMeasure="818.041"/>
+			<RBC-RBCTransition>
+				<NID_C>86</NID_C>
+				<NID_RBC>123</NID_RBC>
+				<NID_RADIO>0881234567</NID_RADIO>
+			</RBC-RBCTransition>
+		</TransitionMarker>
+	</TransitionMarkers>
+	<SpeedChangeMarkers>
+		<SpeedChangeMarker puic="c08f2964-5e59-4861-beb0-9bb91d8e48bd" name="Onconditionele speed change" basicSpeed="80">
+			<Location>
+				<GeographicLocation dataAcquisitionMethod="Constructed">
+					<gml:Point srsName="EPSG:28992">
+						<gml:coordinates>202361.017,437300.21</gml:coordinates>
+					</gml:Point>
+				</GeographicLocation>
+			</Location>
+			<RailConnectionInfo railConnectionRef="6c9e5c45-02b3-4507-955e-57061fd793c4" direction="Downstream" atMeasure="818.041"/>
+			<Q_FRONT>1</Q_FRONT>
+			<Q_DIFF>3</Q_DIFF>
+			<TrainCategorySpeed speed="80">
+				<NC_DIFF>2</NC_DIFF>
+			</TrainCategorySpeed>
+			<CantDeficiencySpeed speed="80">
+				<NC_CDDIFF>0</NC_CDDIFF>
+			</CantDeficiencySpeed>
+		</SpeedChangeMarker>
+		<SpeedChangeMarker puic="39e698c7-2768-4255-a500-bcc83e172375" name="Conditionele speed change" basicSpeed="80">
+			<Location>
+				<GeographicLocation dataAcquisitionMethod="Constructed">
+					<gml:Point srsName="EPSG:28992">
+						<gml:coordinates>202361.017,437300.21</gml:coordinates>
+					</gml:Point>
+				</GeographicLocation>
+			</Location>
+			<RailConnectionInfo railConnectionRef="6c9e5c45-02b3-4507-955e-57061fd793c4" direction="Downstream" atMeasure="818.041"/>
+			<Q_FRONT>1</Q_FRONT>
+			<Q_DIFF>3</Q_DIFF>
+			<Conditions>
+				<SwitchCondition switchPosition="Left" switchRef="c60978a5-c0ae-416e-a5d4-8811aaea31b4"/>
+				<SignalCondition signalRef="ebaa288b-5dc8-4a65-813a-7c899b58650e" signalAspectColor="GreenFlashing" speed="6" flashingSpeedindication="false"/>
+				<OtherCondition objectRef="3d28b7ca-91c8-4876-b6cc-3a64a19d46c1" value="Vrij te definieren waarde"/>
+			</Conditions>
+		</SpeedChangeMarker>
+	</SpeedChangeMarkers>
+	<GradientMarkers>
+		<GradientMarker puic="3468ecf9-ae8b-4248-b7c9-bd86b93ba7a0">
+			<Location>
+				<GeographicLocation dataAcquisitionMethod="Constructed">
+					<gml:Point srsName="EPSG:28992">
+						<gml:coordinates>202361.017,437300.21</gml:coordinates>
+					</gml:Point>
+				</GeographicLocation>
+			</Location>
+			<RailConnectionInfo railConnectionRef="6c9e5c45-02b3-4507-955e-57061fd793c4" direction="Downstream" atMeasure="818.041"/>
+			<Q_GDIR>0</Q_GDIR>
+			<G_A>0</G_A>
+		</GradientMarker>
+	</GradientMarkers>
+	<TextMessageMarkers>
+		<TextMessageMarker puic="ebf63211-781d-4277-a378-a137b2e8c461">
+			<Location>
+				<GeographicLocation dataAcquisitionMethod="Constructed">
+					<gml:Point srsName="EPSG:28992">
+						<gml:coordinates>202361.017,437300.21</gml:coordinates>
+					</gml:Point>
+				</GeographicLocation>
+			</Location>
+			<RailConnectionInfo railConnectionRef="6c9e5c45-02b3-4507-955e-57061fd793c4" direction="Downstream" atMeasure="818.041"/>
+			<Q_TEXTCLASS>01</Q_TEXTCLASS>
+			<Q_TEXTDISPLAY>0</Q_TEXTDISPLAY>
+			<StartConditions>
+				<StartLocation railConnectionRef="6c9e5c45-02b3-4507-955e-57061fd793c4" direction="Downstream" atMeasure="818.041"/>
+				<LevelCondition>
+					<M_LEVELTEXTDISPLAY>3</M_LEVELTEXTDISPLAY>
+				</LevelCondition>
+				<M_MODETEXTDISPLAY>0</M_MODETEXTDISPLAY>
+			</StartConditions>
+			<EndConditions>
+				<LevelCondition>
+					<M_LEVELTEXTDISPLAY>1</M_LEVELTEXTDISPLAY>
+					<NID_NTC>0</NID_NTC>
+				</LevelCondition>
+				<L_TEXTDISPLAY>60</L_TEXTDISPLAY>
+				<T_TEXTDISPLAY>5</T_TEXTDISPLAY>
+				<M_MODETEXTDISPLAY>0</M_MODETEXTDISPLAY>
+			</EndConditions>
+			<Q_TEXTCONFIRM>00</Q_TEXTCONFIRM>
+			<X_TEXT>Dit is een testbericht</X_TEXT>
+		</TextMessageMarker>
+	</TextMessageMarkers>
+	<NationalValueSetMarkers>
+		<NationalValueSetMarker puic="c4076293-59f4-477e-bc1a-e1ce1e535688" name="Nederland">
+			<Location>
+				<GeographicLocation dataAcquisitionMethod="Constructed">
+					<gml:Point srsName="EPSG:28992">
+						<gml:coordinates>202361.017,437300.21</gml:coordinates>
+					</gml:Point>
+				</GeographicLocation>
+			</Location>
+			<RailConnectionInfo railConnectionRef="6c9e5c45-02b3-4507-955e-57061fd793c4" direction="Downstream" atMeasure="818.041"/>
+			<Variable name="NID_C">86</Variable>
+			<Variable name="V_NVSHUNT">40</Variable>
+			<VariableSet name="Verzameleing Q_NVKINTSET">
+				<Variable name="A_NVP12">0.05</Variable>
+			</VariableSet>
+		</NationalValueSetMarker>
+	</NationalValueSetMarkers>
+	<ERTMSLevelCrossings>
+		<ERTMSLevelCrossing levelCrossingRef="aff87d52-56e6-43e7-8ff3-a07110984cda" cwtParameters="NTB" speedRestriction="10">
+			<StoppingArea xmlns="" railConnectionRef="fbc31d77-4668-4001-b504-c515bb26f5a2" fromMeasure="0" toMeasure="10" direction="Downstream"/>
+			<!-- XMLSpy verlangt de declaratie van een xmlns attribuut in de StoppingArea... -->
+		</ERTMSLevelCrossing>
+	</ERTMSLevelCrossings>
+	<ERTMSSignals>
+		<ERTMSSignal signalRef="1e61d292-0509-4a4d-a96f-aa25056e9f3d">
+			<MASection>
+				<sectionEnd xmlns="" railConnectionRef="e2e0ba2b-597e-4fc5-8aff-a9dfea84c0ef" direction="Downstream" atMeasure="100"/>
+				<sectionTimerStopLocation xmlns="" railConnectionRef="e2e0ba2b-597e-4fc5-8aff-a9dfea84c0ef" direction="Downstream" atMeasure="75"/>
+				<T_SECTIONTIMER>30</T_SECTIONTIMER>
+			</MASection>
+			<DangerPoint>
+				<dangerPointLocation xmlns="" railConnectionRef="e2e0ba2b-597e-4fc5-8aff-a9dfea84c0ef" direction="Downstream" atMeasure="10"/>
+				<V_RELEASEDP>10</V_RELEASEDP>
+			</DangerPoint>
+			<Overlap>
+				<OverlapEnd xmlns="" railConnectionRef="e2e0ba2b-597e-4fc5-8aff-a9dfea84c0ef" direction="Downstream" atMeasure="8"/>
+				<OverlapTimerStartLocation xmlns="" railConnectionRef="e2e0ba2b-597e-4fc5-8aff-a9dfea84c0ef" direction="Downstream" atMeasure="2"/>
+				<T_OL>10</T_OL>
+				<V_RELEASEOL>10</V_RELEASEOL>
+			</Overlap>
+		</ERTMSSignal>
+	</ERTMSSignals>
+	<DepartureTracks>
+		<DepartureTrack puic="e31aab72-76da-40a9-88af-5061fc581452" signalRef="a3577f35-c427-40bd-8e1a-e29f0a41e0b8">
+			<SectionRef>345f34a3-4603-4ee2-8fa1-a96fc93504fa</SectionRef>
+			<SectionRef>f3cff5d6-4698-4191-ab55-0899f3659075</SectionRef>
+		</DepartureTrack>
+	</DepartureTracks>
+	<ERTMSSwitches>
+		<ERTMSSwitch switchRef="58b3932f-ac1c-493d-8d6e-8c480e94fa43">
+			<PassageSpeed passageRef="76116c3f-bade-4ee9-9a26-68edbd3ee1e6" basicSpeed="40"/>
+			<PassageSpeed passageRef="1b9cd249-d538-41d7-b5c3-fcea51564fda" unrestricted="true"/>
+		</ERTMSSwitch>
+	</ERTMSSwitches>
+	<ERTMSBaliseGroups>
+		<ERTMSBaliseGroup balisegroupName="001467425" baliseGroupref="ad3112f2-2a40-490d-a33d-b032c964e682">
+			<M_VERSION>16</M_VERSION>
+			<NID_C>425</NID_C>
+			<Q_LINK>1</Q_LINK>
+			<EuroBalise baliseRef="a19286b8-ea52-4758-a9f4-de1ea307817e">
+				<M_DUP>1</M_DUP>
+				<Telegram>
+					<Packet Name="Virtual Balise Cover marker">
+						<Header>
+							<NID_PACKET>0</NID_PACKET>
+						</Header>
+						<Content>
+							<NID_VBCMK>0</NID_VBCMK>
+						</Content>
+					</Packet>
+				</Telegram>
+			</EuroBalise>
+			<NID_BG>2564</NID_BG>
+		</ERTMSBaliseGroup>
+		<ERTMSBaliseGroup balisegroupName="Switchable balise" baliseGroupref="040694fb-e337-4a7f-b823-65225a33f67a">
+			<M_VERSION>16</M_VERSION>
+			<NID_C>425</NID_C>
+			<Q_LINK>1</Q_LINK>
+			<EuroBalise>
+				<M_DUP>0</M_DUP>
+				<Telegram>
+					<Packet Name="VBC">
+						<Header>
+							<NID_PACKET>0</NID_PACKET>
+						</Header>
+						<Content>
+							<NID_VBCMK>0</NID_VBCMK>
+						</Content>
+					</Packet>
+					<Conditions>
+						<SignalCondition signalRef="236867c1-dc4c-4c02-b879-515673aa354e" signalAspectColor="Red"/>
+					</Conditions>
+				</Telegram>
+			</EuroBalise>
+			<NID_BG>9999</NID_BG>
+		</ERTMSBaliseGroup>
+	</ERTMSBaliseGroups>
+</ERTMS>
